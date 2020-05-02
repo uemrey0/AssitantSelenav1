@@ -4,7 +4,7 @@ from Commands import Command
 from playsound import playsound
 from gtts import gTTS
 import os
-r = sr.Recognizer
+r = sr.Recognizer()
 #Merhaba mesajı
 def welcome_msg(text):
     fileName = "welcome.mp3"
@@ -17,7 +17,7 @@ def welcome_msg(text):
     
 print("Asistan'a Hoşgeldiniz.")
 playsound("welcome_msg.mp3")
-user= input("Adınızı Giriniz:")
+user = input("Adınızı Giriniz:")
 welcomeMSG = "Merhaba {} Asistan'a Hoşgeldin. Ben senin kişisel asistanın Selena".format(user)
 welcome_msg(welcomeMSG)
 
@@ -28,7 +28,7 @@ while True:
     with sr.Microphone() as source:
          iamlistenning="Seni diliyorum {}".format(user)
          print(iamlistenning)
-         talk(iamlistenning)
+         playaudio("senidinliyorum.mp3")
          audio = r.listen(source)
 
     data = ""
