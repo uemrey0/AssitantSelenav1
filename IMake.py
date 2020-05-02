@@ -4,8 +4,10 @@ from Commands import Command
 from playsound import playsound
 from gtts import gTTS
 import os
+import requests
+import sys
 r = sr.Recognizer()
-#Merhaba mesajı
+#Welcome MSG
 def welcome_msg(text):
     fileName = "welcome.mp3"
     tts = gTTS(text=text, lang="tr")
@@ -13,23 +15,32 @@ def welcome_msg(text):
     print(text)
     playsound(fileName)
     os.remove(fileName)
-    
-    
-print("Asistan'a Hoşgeldiniz.")
-playsound("welcome_msg.mp3")
-user = input("Adınızı Giriniz:")
-welcomeMSG = "Merhaba {} Asistan'a Hoşgeldin. Ben senin kişisel asistanın Selena".format(user)
-welcome_msg(welcomeMSG)
+def check_internet():
+    url='http://www.google.com/'
+    timeout=5
+    try:
+        _ = requests.get(url, timeout=timeout)
+        return True
+    except requests.ConnectionError:
+        print("İnternet bağlantısı yok.")
+        playsound("noconnection.mp3")
+    return False
 
+if check_internet() != True:
+    sys.exit()
+else:
+    print("Asistan'a Hoşgeldiniz.")
+    playsound("welcome_msg.mp3")
+    user= input("Adınızı Giriniz:")
+    welcomeMSG = "Merhaba {} Asistan'a Hoşgeldin. Ben senin kişisel asistanın Selena".format(user)
+    welcome_msg(welcomeMSG)
+    #Network check
 
-
-#Döngü
-while True:
+while check_internet():
     with sr.Microphone() as source:
-         iamlistenning="Seni diliyorum {}".format(user)
-         print(iamlistenning)
-         playaudio("senidinliyorum.mp3")
-         audio = r.listen(source)
+        print ("Seni Dinliyorum...")
+        playsound('senidinliyorum.mp3')
+        audio = r.listen(source)
 
     data = ""
     try:
@@ -40,5 +51,5 @@ while True:
         time.sleep(1)
 
     except sr.UnknownValueError:
-        print("Ne dediğini anlamadım dostum:(")
+        print("Üzgünüm Dostun ne dediğini anlamadım :(")
         playsound('error.mp3')
