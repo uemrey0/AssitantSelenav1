@@ -25,8 +25,9 @@ welcome_msg(welcomeMSG)
 #Döngü
 while True:
     with sr.Microphone() as source:
-         print ("Seni Dinliyorum...")
-         playsound('senidinliyorum.mp3')
+         iamlistenning="Seni diliyorum {}".format(user)
+         print(iamlistenning)
+         talk(iamlistenning)
          audio = r.listen(source)
 
     data = ""
