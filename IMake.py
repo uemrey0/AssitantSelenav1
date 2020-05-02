@@ -2,9 +2,27 @@ import speech_recognition as sr
 import time
 from Commands import Command
 from playsound import playsound
-print('Merhaba Emre ben senin kişisel asistanın Selena.')
-playsound('welcome.mp3')
-r = sr.Recognizer()
+from gtts import gTTS
+r = sr.Recognizer
+#Merhaba mesajı
+def welcome_msg(text):
+    fileName = "welcome.mp3"
+    tts = gTTS(text=text, lang="tr")
+    tts.save(fileName)
+    print(text)
+    playsound(fileName)
+    os.remove(fileName)
+    
+    
+print("Asistan'a Hoşgeldiniz.")
+playsound("welcome_msg.mp3")
+user= input("Adınızı Giriniz:")
+welcomeMSG = "Merhaba {} Asistan'a Hoşgeldin. Ben senin kişisel asistanın Selena".format(user)
+welcome_msg(welcomeMSG)
+
+
+
+#Döngü
 while True:
     with sr.Microphone() as source:
          print ("Seni Dinliyorum...")
