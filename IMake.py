@@ -3,6 +3,7 @@ import time
 from Commands import Command
 from playsound import playsound
 from gtts import gTTS
+import os
 r = sr.Recognizer
 #Merhaba mesajı
 def welcome_msg(text):
