@@ -40,14 +40,7 @@ class Command():
         wordchoose = choice(naberWords)
         self.speak(wordchoose)
 
-    """
-    def iftar(self):
-        r = requests.get ("https://www.sozcu.com.tr/imsakiye")
-        tree = html.fromstring(r.content)
 
-        iftara = tree.xpath("//*[@class=imsakiye]/div[3]/div[2]/div[1]/div[2]/ul[1]/li[5]/div[@class=day-part-time")
-        self.speak(iftara)
-    """
     # İŞLEVSEL
     def findCommand(self):
         for command in self.commands:
@@ -58,8 +51,4 @@ class Command():
             self.kapat()
         if command == "NASILSIN":
             self.nasılsın()
-       """ 
-        if command == "IFTAR":
-            self.iftar()
-       """
 
